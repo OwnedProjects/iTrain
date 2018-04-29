@@ -1,0 +1,13 @@
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+  <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">My Learning Portal</a>
+  <input class="col-md-7 form-control form-control-dark w-100" type="text" placeholder="Search: currently search is disabled..." aria-label="Search" readonly />
+  <ul class="navbar-nav px-3 col-md-3">  
+    <li class="nav-item text-nowrap">
+      <a class="nav-link header-link text-primary" href="javascript:void(0)" *ngIf="userSpinner"><i class="fa fa-spinner fa-pulse fa-fw"></i>Please wait...</a>
+      <a class="nav-link header-link text-white" href="javascript:void(0)" *ngIf="!userSpinner">
+        <i class="fa fa-user-circle"></i>  {{username}}</a>
+      <a class="nav-link header-link" href="javascript:void(0)" (click)="logout()" *ngIf="username">Sign out</a>
+      <a class="nav-link header-link" href="#/login" *ngIf="!username">Sign in</a>
+    </li>
+  </ul>
+</nav>

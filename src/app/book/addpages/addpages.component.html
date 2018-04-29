@@ -1,0 +1,45 @@
+<app-spinner *ngIf="spinnerActive"></app-spinner>
+<div class="row" *ngIf="bookDetails">
+  <h5 class="text-info col-md-9">Create page for book: 
+      <span class="text-primary text-italic text-underline">{{bookDetails.title}}</span>      
+  </h5>
+  <div class="col-md-3"><a href="#/book/allbooks" class="btn btn-warning float-right">Back</a> </div>
+  <div class="col-md-8 mt-2">
+      <h6 class="float-right text-primary">-- <span class="text-italic">{{bookDetails.authorName}}</span></h6>
+  </div>
+  <div class="col-md-4 mt-2 descriptionWrapper"><a href="javascript:void(0)" class="text-danger float-right" (click)="showDescription=!showDescription">How to write page description <i class="fa fa-exclamation-circle"></i></a>
+    <div class="descriptionDetails" *ngIf="showDescription">
+      <h6 class="text-info">Writing description 
+        <a href="javascript:void(0)" (click)="showDescription=!showDescription"><i class="fa fa-times float-right"></i></a>
+      </h6>
+      <hr class="bg-warning" />
+      <ul class="list-group">
+        <li class="list-group-item">You can use all HTML tags.</li>
+        <li class="list-group-item">Even you can use Bootstrap4 css elements.</li>
+        <li class="list-group-item">If you want to display HTML elements in output, use tags in textarea tag.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h6 class="col-md-12 mt-2 text-success" *ngIf="successFlag">Page created successfully.</h6>
+  <h6 class="col-md-12 mt-2 text-danger" *ngIf="errorFlag">Page creation failed.</h6>
+
+  <div class="col-md-12 mt-2">
+    <form>
+      <input type="text" name="pageTitle" class="form-control" placeholder="Page title (optional) - This will help creating index page" [(ngModel)]="pageTitle"/>
+      <textarea name="desc" rows="15" class="form-control mt-2" placeholder="Page content - You can write text/html code as well as Bootstrap 4." [(ngModel)]="desc"></textarea>
+      
+      <div class="float-right mt-2">
+        <button type="button" class="btn btn-primary" (click)="createPage()" [disabled]="!desc">
+          <i class="fa fa-plus"></i> Create page
+        </button>
+      </div>
+    </form>
+  </div>
+
+<div class="col-md-12 mt-2">
+  <h5 class="text-primary" *ngIf="pageTitle || desc">Live Preview</h5>
+  <h6 class="text-info" *ngIf="pageTitle">{{pageTitle}}</h6>
+  <h6 [innerHtml]="desc"></h6>
+</div>
+</div>

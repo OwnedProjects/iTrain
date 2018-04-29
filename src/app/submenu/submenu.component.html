@@ -1,0 +1,13 @@
+<div class="nav-scroller bg-white box-shadow mb-2" *ngIf="activeMenu == 'Dashboard'">
+  <nav class="nav nav-underline">
+    <a class="nav-link" [ngClass]="{'active': activeSubmenu=='Dashboard'}" href="#/home">Dashboard</a>
+  </nav>
+</div>
+
+<!-- Books Submenu -->
+<div class="nav-scroller bg-white box-shadow mb-2" *ngIf="activeMenu == 'Book'">
+  <nav class="nav nav-underline">
+    <a class="nav-link" [ngClass]="{'active': activeSubmenu=='AllBooks'}" href="#/book/allbooks">All Books</a>
+    <a class="nav-link" [ngClass]="{'active': activeSubmenu=='CreateBook'}" href="#/book/createbook">Create book</a>
+  </nav>
+</div>

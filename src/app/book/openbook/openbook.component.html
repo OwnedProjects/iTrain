@@ -1,0 +1,102 @@
+<app-spinner *ngIf="spinnerActive"></app-spinner>
+
+  <div class="nav-scroller bg-white box-shadow mb-2" [hidden]="showPageCounter">
+    <nav class="nav nav-underline nav-menu">
+      <a class="nav-link" href="javascript:void(0)" (click)="jumpToBookmark()" *ngIf="isBookmarkAvail && !isBookmarked">
+        <span>Jump To Bookmark <i class="fa fa-share"></i> </span>
+      </a>
+      <a class="nav-link" href="javascript:void(0)" (click)="bookmarkThisPage()">
+        <i class="fa fa-pulse fa-spinner text-primary" *ngIf="bookmarkSpinner"></i>
+        <span *ngIf="isBookmarked" [hidden]="bookmarkSpinner" class="text-success" title="Remove Bookmark">
+          Bookmarked
+          <i class="fa fa-bookmark"></i>
+        </span>
+        <span *ngIf="!isBookmarked" [hidden]="bookmarkSpinner" title="Add Bookmark">
+          Bookmark this page
+          <i class="fa fa-bookmark-o"></i>
+        </span>
+      </a>
+      <a class="nav-link" href="javascript:void(0)" (click)="favoriteThisPage()">
+        <i class="fa fa-pulse fa-spinner text-primary" *ngIf="favoriteSpinner"></i>
+        <span *ngIf="isFavorite" title="Remove Favorite" class="text-success" [hidden]="favoriteSpinner">
+          Favorite page 
+          <i class="fa fa-star"></i>
+        </span>
+        <span *ngIf="!isFavorite" title="Add Favorite" [hidden]="favoriteSpinner">
+            Favorite this page 
+            <i class="fa fa-star-o"></i>
+          </span>
+      </a>
+      <a class="nav-link" href="javascript:void(0)" (click)="addNotePopUp()">
+        <span *ngIf="!isNotePresent">Add Note <i class="fa fa-sticky-note-o"></i> </span>
+        <span class="text-success" *ngIf="isNotePresent">Edit Note <i class="fa fa-sticky-note"></i> </span>
+      </a>
+      <a class="nav-link" href="javascript:void(0)" (click)="allNotesPopUpFlag = !allNotesPopUpFlag">
+        <span [ngClass]="{'text-success': allNotesPopUpFlag == true}">All Notes <i class="fa fa-sticky-note"></i> </span>
+      </a>
+      <div class="input-group col-md-3 jumpToPage">
+        <input type="text" class="form-control" placeholder="Jump to page" [(ngModel)]="pageJump" aria-describedby="basic-addon2" />
+        <div class="input-group-append">
+            <button class="btn btn-secondary" type="button" (click)="jumpToPage()"> <i class="fa fa-forward"></i> Jump</button>
+        </div>
+      </div>
+      <div class="text-danger jumpErrorText" *ngIf="jumpErrorFlag"><i class="fa fa-exclamation-triangle"></i> Please enter a valid page number.</div>
+    </nav>
+  </div>
+
+<div class="row pageDetails" *ngIf="bookDetails">
+  <h5 class="text-info col-md-9">Book: 
+      <span class="text-primary text-italic text-underline">{{bookDetails.title}}</span>      
+  </h5>
+  <div class="col-md-3 mt-1">
+      <h6 class="float-right text-primary">-- <span class="text-italic">{{bookDetails.authorName}}</span></h6>
+  </div>
+
+  <div class="col-md-12">
+    <button class="btn btn-link text-primary float-left pb-0" [disabled]="prevBtn" (click)="gotoPrevPage()">
+      <h6><i class="fa fa-chevron-circle-left"></i> Previous</h6>
+    </button>
+    <a class="bnt btn-link pagenos text-info" [hidden]="showPageCounter"><h6>{{currPageNo}} / {{totalPageCount}}</h6></a>
+    <button class="btn btn-link float-right text-primary pb-0" (click)="goToNextPage()" [disabled]="nextBtn">
+      <h6>Next <i class="fa fa-chevron-circle-right"></i></h6>
+    </button>
+  </div>
+
+  <div class="col-md-12">
+      <div class="pageWrapper">
+        <h6 class="text-danger" *ngIf="noPages">Currently, this book does not have any pages.</h6>
+        <div *ngFor="let page of pages;let i = index" [hidden]="i+1 != currPageNo">
+          <h6 *ngIf="page.title">{{page.title}}</h6>
+          <hr class="bg-warning" *ngIf="page.title"/>
+          <div [innerHtml]="page.desc"></div>
+        </div>
+      </div>
+  </div>
+</div>
+
+<div class="alert alert-warning disabledKeyPressNotific" *ngIf="disabledKeyPress" role="alert">
+  <i class="fa fa-spinner fa-pulse"></i> Please wait, enabling Next and Previous keyboard events.
+</div>
+
+<div class="noteWrapper" [hidden]="!addNoteFlag">
+  <div class="noteHeader">Add Note <div class="closebtn" title="Close note" (click)="closeNotePopUp()"><i class="fa fa-times"></i> </div> </div>
+  <textarea class="noteText" placeholder="Add note for this page..." [(ngModel)]="noteText" autofocus></textarea>
+  <button type="button" class="btn btn-sm btn-primary" title="Save Note" (click)="saveNote()" [disabled]="!noteText">
+    <span *ngIf="!isNotePresent">Save</span>
+    <span *ngIf="isNotePresent">Update</span>
+  </button>
+  <button type="button" class="btn btn-sm btn-danger" title="Delete Note" (click)="deleteNote()" *ngIf="isNotePresent">
+    <span>Delete</span>
+  </button>
+  <span class="text-danger emptySpaceError" *ngIf="emptySpaceErr">* Cannot add empty space</span>
+  <span class="text-success emptySpaceError" *ngIf="noteAddedFlag">Note added successfully</span>
+</div>
+
+
+<div class="allNoteWrapper" [hidden]="!allNotesPopUpFlag">
+  <div class="wrapperHeader">All Notes <i class="fa fa-times float-right closeBtn" title="Close All Notes" (click)="allNotesPopUpFlag = !allNotesPopUpFlag"></i> </div>
+  <div class="noteContainer" *ngFor="let note of allNotesData">
+    <div class="noteHeader">Note of Page: {{note.currPageNo}} </div>
+    <textarea readonly [value]="note.noteText"></textarea>
+  </div>
+</div>

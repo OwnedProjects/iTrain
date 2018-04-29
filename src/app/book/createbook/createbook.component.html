@@ -1,0 +1,24 @@
+<app-spinner *ngIf="spinnerActive"></app-spinner>
+<app-submenu activeMenu="Book" activeSubmenu="CreateBook"></app-submenu>
+<h5 class="text-info">CREATE BOOK</h5>
+<hr class="bg-info">
+<div class="mt-3">
+    <form *ngIf="!bookSuccess && !bookError">
+        <input type="text" class="form-control mb-3" name="title" placeholder="Book Title" [(ngModel)]="title" />
+        <textarea class="form-control mb-3" placeholder="Short Description" rows="7" name="desc" [(ngModel)]="desc"></textarea>
+        <input type="text" class="form-control mb-3" placeholder="Author" name="author" [(ngModel)]="author" disabled/>
+        <button type="button" class="btn btn-primary" (click)="createBook()" [disabled]="!title || !desc">
+            <i class="fa fa-book"></i> Create Book
+        </button>
+    </form>
+
+    <div class="col-md-12" *ngIf="bookSuccess && !bookError">
+        <h6 class="text-success">Book created successfully</h6>  
+        <!-- Pending from here, Need to give the book link -->
+        <h6 class="text-info">Please click on the following link</h6>  
+    </div>
+
+    <div class="col-md-12" *ngIf="bookError && !bookSuccess">
+        <h6 class="text-danger">Book creation failed, kindly try again.</h6> 
+    </div>
+</div>

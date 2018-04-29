@@ -1,0 +1,57 @@
+<!-- Side Menu start -->
+<div class="container-fluid">
+  <div class="row">
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+      <div class="sidebar-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link" [ngClass]="{'active': activeMenu=='dashboard'}" href="#/home">
+              <i class="fa fa-home"></i>
+              Dashboard <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [ngClass]="{'active': activeMenu=='book'}" href="#/book/allbooks">
+              <i class="fa fa-book"></i>
+              Books
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [ngClass]="{'active': activeMenu=='favorites'}" href="#/favorites">
+              <i class="fa fa-star"></i>
+              Favorite pages
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [ngClass]="{'active': activeMenu=='notes'}" href="#/book/allbooks">
+              <i class="fa fa-sticky-note"></i>
+              All Notes
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [ngClass]="{'active': activeMenu=='mybooks'}" href="#/book/allbooks">
+              <i class="fa fa-book"></i>
+              My Books
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [ngClass]="{'active': activeMenu=='allclassrooms'}" href="#/book/allbooks">
+              <i class="fa fa-users"></i>
+              All Classrooms
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [ngClass]="{'active': activeMenu=='myclassrooms'}" href="#/book/allbooks">
+              <i class="fa fa-user-plus"></i>
+              My Classrooms
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-1 px-4">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
+<!-- Side Menu Ends -->
